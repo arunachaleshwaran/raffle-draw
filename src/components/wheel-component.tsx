@@ -1,5 +1,66 @@
 import React, { useEffect, useState, useRef } from 'react';
 
+const richWarmColors = [
+  '#F26723',
+  '#E35323',
+  '#C61621',
+  '#C61521',
+  '#FF5E3A',
+  '#FF4C29',
+  '#F4471F',
+  '#D84315',
+  '#FF5722',
+  '#E64A19',
+  '#BF360C',
+  '#FF7043',
+  '#FF6E40',
+  '#FF3D00',
+  '#DD2C00',
+  '#F4511E',
+  '#D84315',
+  '#F44336',
+  '#E53935',
+  '#D32F2F',
+  '#C62828',
+  '#B71C1C',
+  '#FF5252',
+  '#FF1744',
+  '#D50000',
+  '#FF6F61',
+  '#FF5E5B',
+  '#FF3B30',
+  '#F24E1E',
+  '#ED2939',
+  '#FF6347',
+  '#FA4F42',
+  '#D72638',
+  '#C21807',
+  '#E94B3C',
+  '#F24130',
+  '#FF5733',
+  '#FF4500',
+  '#FF3300',
+  '#D4372B',
+  '#DC381F',
+  '#F75C03',
+  '#F24C00',
+  '#C72C1D',
+  '#B22222',
+  '#F83A19',
+  '#FF4F4F',
+  '#FF3F34',
+  '#E94E3B',
+  '#F03E3E',
+];
+let color = richWarmColors;
+const generateRandomColor = () => {
+  if (color.length === 0) {
+    color = richWarmColors;
+  }
+  const randomIndex = Math.floor(Math.random() * color.length);
+  return color[randomIndex];
+};
+
 export interface WheelComponentProps {
   segments: string[];
   segColors: string[];
@@ -19,7 +80,6 @@ export interface WheelComponentProps {
 
 const WheelComponent = ({
   segments,
-  segColors,
   onFinished,
   primaryColor = 'black',
   contrastColor = 'white',
@@ -31,6 +91,7 @@ const WheelComponent = ({
   fontSize = '1em',
   outlineWidth = 10,
 }: WheelComponentProps) => {
+  const segColors = segments.map(generateRandomColor);
   const randomString = () => {
     const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
     const length = 8;
@@ -90,7 +151,6 @@ const WheelComponent = ({
       timerHandle = window.setInterval(onTimerTick, 10);
     }
   };
-  const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 
   const onTimerTick = () => {
     draw();
