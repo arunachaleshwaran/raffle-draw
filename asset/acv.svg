@@ -1,1 +1,58 @@
-<svg data-v-cac3c7ff="" viewBox="0 0 91 40" fill="none" xmlns="http://www.w3.org/2000/svg" alt="The logo of ACV Auctions" class="acv-logo"><title>ACV Auctions</title><desc>The stylized logo of ACV Auctions</desc><g clip-path="url(#22-clip0)"><path d="M47.4432 26.3727C44.0446 26.3727 41.635 23.5655 42.0609 20.1024C42.4868 16.6394 45.5879 13.8321 48.9865 13.8321C50.9437 13.8321 52.5718 14.7636 53.5204 16.2139L59.7313 9.83745C57.4562 7.06531 53.9909 5.33936 49.9179 5.33936C41.9752 5.33936 34.73 11.8999 33.7342 19.9937C32.7385 28.0867 38.3701 34.648 46.312 34.648C50.4021 34.648 54.3053 32.9067 57.2677 30.1131L51.7646 24.7538C50.5486 25.758 49.0293 26.3727 47.4432 26.3727Z" fill="url(#22-paint0_linear)"></path><path d="M79.365 0H90.5263L69.765 33.3633H58.6045L79.365 0Z" fill="url(#22-paint1_linear)"></path><path d="M32.6759 21.9512C32.6717 21.2731 32.7111 20.5848 32.7968 19.8888C32.9073 18.9881 33.0915 18.1003 33.3461 17.2314L32.1009 8.00488L24.9945 19.4282L25.567 23.6463H22.3552L18.6799 29.5682H26.3639L26.8746 33.3642L35.5218 33.3634L35.0616 29.9603C33.4814 27.659 32.6597 24.9006 32.6759 21.9512Z" fill="url(#22-paint2_linear)"></path><path d="M20.7605 6.63574H31.9218L11.1613 39.9999H0L20.7605 6.63574Z" fill="url(#22-paint3_linear)"></path><path d="M63.5909 6.63574H57.2428C58.6105 7.43108 59.8393 8.52778 60.979 9.8368L56.0449 14.8922L58.3714 32.1269L65.4769 20.7096L63.5909 6.63574Z" fill="url(#22-paint4_linear)"></path></g><defs><linearGradient id="22-paint0_linear" x1="49.8154" y1="34.2544" x2="44.8396" y2="6.00919" gradientUnits="userSpaceOnUse"><stop stop-color="#F26723"></stop><stop offset="0.3315" stop-color="#E35323"></stop><stop offset="0.9971" stop-color="#C61621"></stop><stop offset="1" stop-color="#C61521"></stop></linearGradient><linearGradient id="22-paint1_linear" x1="74.5653" y1="33.3636" x2="74.5653" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#F26723"></stop><stop offset="0.3315" stop-color="#E35323"></stop><stop offset="0.9971" stop-color="#C61621"></stop><stop offset="1" stop-color="#C61521"></stop></linearGradient><linearGradient id="22-paint2_linear" x1="25.8187" y1="33.6855" x2="38.502" y2="11.6972" gradientUnits="userSpaceOnUse"><stop stop-color="#F26723"></stop><stop offset="0.3315" stop-color="#E35323"></stop><stop offset="0.9971" stop-color="#C61621"></stop><stop offset="1" stop-color="#C61521"></stop></linearGradient><linearGradient id="22-paint3_linear" x1="15.961" y1="39.9996" x2="15.961" y2="6.636" gradientUnits="userSpaceOnUse"><stop stop-color="#F26723"></stop><stop offset="0.3315" stop-color="#E35323"></stop><stop offset="0.9971" stop-color="#C61621"></stop><stop offset="1" stop-color="#C61521"></stop></linearGradient><linearGradient id="22-paint4_linear" x1="52.6144" y1="28.8068" x2="64.9505" y2="7.42042" gradientUnits="userSpaceOnUse"><stop stop-color="#F26723"></stop><stop offset="0.3315" stop-color="#E35323"></stop><stop offset="0.9971" stop-color="#C61621"></stop><stop offset="1" stop-color="#C61521"></stop></linearGradient><clipPath id="22-clip0"><rect width="90.5263" height="40" fill="white"></rect></clipPath></defs></svg>
+<svg data-v-cac3c7ff="" viewBox="0 0 91 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+	alt="The logo of ACV Auctions" class="acv-logo">
+	<title>ACV Auctions</title>
+	<desc>The stylized logo of ACV Auctions</desc>
+	<g clip-path="url(#22-clip0)">
+		<path
+			d="M47.4432 26.3727C44.0446 26.3727 41.635 23.5655 42.0609 20.1024C42.4868 16.6394 45.5879 13.8321 48.9865 13.8321C50.9437 13.8321 52.5718 14.7636 53.5204 16.2139L59.7313 9.83745C57.4562 7.06531 53.9909 5.33936 49.9179 5.33936C41.9752 5.33936 34.73 11.8999 33.7342 19.9937C32.7385 28.0867 38.3701 34.648 46.312 34.648C50.4021 34.648 54.3053 32.9067 57.2677 30.1131L51.7646 24.7538C50.5486 25.758 49.0293 26.3727 47.4432 26.3727Z"
+			fill="url(#22-paint0_linear)"></path>
+		<path d="M79.365 0H90.5263L69.765 33.3633H58.6045L79.365 0Z" fill="url(#22-paint1_linear)"></path>
+		<path
+			d="M32.6759 21.9512C32.6717 21.2731 32.7111 20.5848 32.7968 19.8888C32.9073 18.9881 33.0915 18.1003 33.3461 17.2314L32.1009 8.00488L24.9945 19.4282L25.567 23.6463H22.3552L18.6799 29.5682H26.3639L26.8746 33.3642L35.5218 33.3634L35.0616 29.9603C33.4814 27.659 32.6597 24.9006 32.6759 21.9512Z"
+			fill="url(#22-paint2_linear)"></path>
+		<path d="M20.7605 6.63574H31.9218L11.1613 39.9999H0L20.7605 6.63574Z" fill="url(#22-paint3_linear)"></path>
+		<path
+			d="M63.5909 6.63574H57.2428C58.6105 7.43108 59.8393 8.52778 60.979 9.8368L56.0449 14.8922L58.3714 32.1269L65.4769 20.7096L63.5909 6.63574Z"
+			fill="url(#22-paint4_linear)"></path>
+	</g>
+	<defs>
+		<linearGradient id="22-paint0_linear" x1="49.8154" y1="34.2544" x2="44.8396" y2="6.00919"
+			gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F26723"></stop>
+			<stop offset="0.3315" stop-color="#E35323"></stop>
+			<stop offset="0.9971" stop-color="#C61621"></stop>
+			<stop offset="1" stop-color="#C61521"></stop>
+		</linearGradient>
+		<linearGradient id="22-paint1_linear" x1="74.5653" y1="33.3636" x2="74.5653" y2="0"
+			gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F26723"></stop>
+			<stop offset="0.3315" stop-color="#E35323"></stop>
+			<stop offset="0.9971" stop-color="#C61621"></stop>
+			<stop offset="1" stop-color="#C61521"></stop>
+		</linearGradient>
+		<linearGradient id="22-paint2_linear" x1="25.8187" y1="33.6855" x2="38.502" y2="11.6972"
+			gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F26723"></stop>
+			<stop offset="0.3315" stop-color="#E35323"></stop>
+			<stop offset="0.9971" stop-color="#C61621"></stop>
+			<stop offset="1" stop-color="#C61521"></stop>
+		</linearGradient>
+		<linearGradient id="22-paint3_linear" x1="15.961" y1="39.9996" x2="15.961" y2="6.636"
+			gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F26723"></stop>
+			<stop offset="0.3315" stop-color="#E35323"></stop>
+			<stop offset="0.9971" stop-color="#C61621"></stop>
+			<stop offset="1" stop-color="#C61521"></stop>
+		</linearGradient>
+		<linearGradient id="22-paint4_linear" x1="52.6144" y1="28.8068" x2="64.9505" y2="7.42042"
+			gradientUnits="userSpaceOnUse">
+			<stop stop-color="#F26723"></stop>
+			<stop offset="0.3315" stop-color="#E35323"></stop>
+			<stop offset="0.9971" stop-color="#C61621"></stop>
+			<stop offset="1" stop-color="#C61521"></stop>
+		</linearGradient>
+		<clipPath id="22-clip0">
+			<rect width="90.5263" height="40" fill="white"></rect>
+		</clipPath>
+	</defs>
+</svg>
