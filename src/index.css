@@ -25,15 +25,15 @@ button {
   border: none;
   margin: 0;
   padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
-    appearance: none;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  appearance: none;
 }
 
 button::-moz-focus-inner {
@@ -47,15 +47,15 @@ select,
 textarea {
   font-family: inherit;
   font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
+  line-height: 1.15;
+  margin: 0;
 }
 
 button,
 input {
   overflow: visible;
 }
-input[type="text"] {
+input[type='text'] {
   border-radius: 0;
 }
 body {
@@ -63,7 +63,7 @@ body {
   max-width: 68rem;
   margin: 0 auto;
   font:
-    1.6rem/1.25 "Helvetica Neue",
+    1.6rem/1.25 'Helvetica Neue',
     Helvetica,
     Arial,
     sans-serif;
