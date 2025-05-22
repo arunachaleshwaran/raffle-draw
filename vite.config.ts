@@ -13,7 +13,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@/magicui': path.resolve(__dirname, './src/components/magicui'),
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
   },
 });
