@@ -146,7 +146,7 @@ const WheelComponent = ({
     isStarted = true;
     if (timerHandle === 0) {
       spinStart = new Date().getTime();
-      maxSpeed = Math.PI / segments.length;
+      maxSpeed = Math.PI / segments.length + Math.random() * (Math.PI / 2);
       timerHandle = window.setInterval(onTimerTick, 10);
     }
   };
