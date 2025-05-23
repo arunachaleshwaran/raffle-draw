@@ -3,10 +3,12 @@ import { useConfetti } from '@/magicui/use-confetti';
 import WheelComponent from './components/wheel-component';
 import { useLongPress } from '@/hook/use-long-press';
 import { useMemo, useRef, useState } from 'react';
+import { ScratchToReveal } from './components/magicui/scratch-to-reveal';
 
 function App() {
   const [state, setState] = useState<'button' | 'button-click' | 'spin-wheel' | 'winner'>('button');
-  const [winner, setWinner] = useState<null | { name: string; prize: string }>(null);
+  const [winners, setWinners] = useState<Array<{ name: string; prize: string }>>([]);
+  const prizes = ['2000', '1000', '500'];
   const homeSpanRef = useRef<HTMLSpanElement>(null);
   const { trigger, isRunning } = useConfetti();
   const segments = [
@@ -38,7 +40,7 @@ function App() {
   const onFinished = (winner: string) => {
     trigger();
     setTimeout(() => setState('winner'), 5000);
-    setWinner({ name: winner, prize: 'voucher' });
+    setWinners((state) => [{ name: winner, prize: '' }, ...state]);
     buttonRef.current?.classList.remove('button-animate');
     removeRootStyle();
   };
@@ -55,7 +57,6 @@ function App() {
     },
     { delay: 5000 },
   );
-  console.log('isClicking', isClicking);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useMemo(() => {
     if (!buttonRef.current) return;
@@ -71,6 +72,7 @@ function App() {
       buttonRef.current.classList.remove('h-full');
     }
   }, [isClicking]);
+  console.log(winners);
   return (
     <>
       <span
@@ -87,7 +89,7 @@ function App() {
             type="button"
             className="bg-secondary-background rounded-full w-1/6 h-1/6 absolute button-animate"
           >
-            Click Me
+            Hold
           </button>
         )}
         {state === 'spin-wheel' && (
@@ -107,9 +109,25 @@ function App() {
           </span>
         )}
         {state === 'winner' && (
-          <span className="absolute text-3xl text-white font-bold">
-            {winner?.name} won {winner?.prize}!
-          </span>
+          <ScratchToReveal
+            width={300}
+            height={300}
+            className="flex items-center justify-center overflow-hidden rounded-[20%]"
+            minScratchPercentage={70}
+            gradientColors={['#A97CF8', '#F38CB8', '#FDCC92']}
+            onComplete={() => {
+              trigger();
+              setWinners((state) => {
+                const newWinners = [...state];
+                newWinners[0].prize = prizes[Math.floor(Math.random() * prizes.length)];
+                return newWinners;
+              });
+            }}
+          >
+            <span className="text-3xl bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
+              {prizes[winners.length - 1]}
+            </span>
+          </ScratchToReveal>
         )}
       </span>
     </>
