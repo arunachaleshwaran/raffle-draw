@@ -2,9 +2,12 @@ import './App.css';
 import { useConfetti } from '@/magicui/use-confetti';
 import WheelComponent from './components/wheel-component';
 import { useLongPress } from '@/hook/use-long-press';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 function App() {
+  const [state, setState] = useState<'button' | 'button-click' | 'spin-wheel' | 'winner'>('button');
+  const [winner, setWinner] = useState<null | { name: string; prize: string }>(null);
+  const homeSpanRef = useRef<HTMLSpanElement>(null);
   const { trigger, isRunning } = useConfetti();
   const segments = [
     'better luck next time',
@@ -26,56 +29,89 @@ function App() {
     '#EC3F3F',
     '#FF9000',
   ];
+  const rootEle = document.getElementById('root')!;
+  const removeRootStyle = () => {
+    rootEle.style.removeProperty('animation-timing-function');
+    rootEle.style.removeProperty('animation-duration');
+    rootEle.style.removeProperty('background-blend-mode');
+  };
   const onFinished = (winner: string) => {
     trigger();
+    setTimeout(() => setState('winner'), 5000);
+    setWinner({ name: winner, prize: 'voucher' });
+    buttonRef.current?.classList.remove('button-animate');
+    removeRootStyle();
   };
   const { isClicking, ...longPressEvent } = useLongPress(
-    () => trigger(),
-    () => console.log('click'),
+    () => {
+      setState('spin-wheel');
+      rootEle.style.setProperty('background-blend-mode', 'difference');
+    },
+    () => {
+      setState('button');
+      rootEle.style.setProperty('animation-duration', '.2s');
+      removeRootStyle();
+      buttonRef.current?.style.setProperty('animation-duration', '.2s');
+    },
     { delay: 5000 },
   );
   console.log('isClicking', isClicking);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useMemo(() => {
-    const rootEle = document.getElementById('root')!;
     if (!buttonRef.current) return;
     if (isClicking) {
+      setState('button-click');
       rootEle.style.setProperty('animation-timing-function', 'var(--ripple-animation)');
-      rootEle.style.setProperty('animation-duration', '.3s');
-      rootEle.style.setProperty('background-blend-mode', 'difference');
+      rootEle.style.setProperty('animation-duration', '.2s');
 
-      buttonRef.current.classList.add('button-animate');
+      buttonRef.current.classList.add('w-full');
+      buttonRef.current.classList.add('h-full');
     } else {
-      rootEle.style.removeProperty('animation-timing-function');
-      rootEle.style.removeProperty('animation-duration');
-      rootEle.style.removeProperty('background-blend-mode');
-      buttonRef.current.classList.remove('button-animate');
+      buttonRef.current.classList.remove('w-full');
+      buttonRef.current.classList.remove('h-full');
     }
   }, [isClicking]);
   return (
     <>
-      <WheelComponent
-        segments={segments}
-        segColors={segColors}
-        winningSegment="won 10"
-        onFinished={(winner) => onFinished(winner)}
-        primaryColor="black"
-        contrastColor="white"
-        buttonText=""
-        isOnlyOnce={true}
-        size={300}
-        upDuration={3000}
-      />
-      {!isRunning && (
-        <button
-          ref={buttonRef}
-          {...longPressEvent}
-          type="button"
-          className="bg-primary-background  text-secondary p-2 rounded"
-        >
-          Button
-        </button>
-      )}
+      <span
+        className="absolute w-[80vmin] h-[80vmin] flex justify-center items-center"
+        ref={homeSpanRef}
+      >
+        {state == 'button-click' && (
+          <span className="rounded-full w-full h-full absolute backdrop-brightness-130" />
+        )}
+        {(state == 'button' || state == 'button-click') && (
+          <button
+            ref={buttonRef}
+            {...longPressEvent}
+            type="button"
+            className="bg-secondary-background rounded-full w-1/6 h-1/6 absolute button-animate"
+          >
+            Click Me
+          </button>
+        )}
+        {state === 'spin-wheel' && (
+          <span className="absolute">
+            <WheelComponent
+              segments={segments}
+              segColors={segColors}
+              winningSegment="won 10"
+              onFinished={(winner) => onFinished(winner)}
+              primaryColor="black"
+              contrastColor="white"
+              buttonText=""
+              isOnlyOnce={true}
+              size={homeSpanRef.current ? homeSpanRef.current.clientWidth / 2 : 300}
+              upDuration={1000}
+            />
+          </span>
+        )}
+        {state === 'winner' && (
+          <span className="absolute text-3xl text-white font-bold">
+            {winner?.name} won {winner?.prize}!
+          </span>
+        )}
+      </span>
     </>
   );
 }

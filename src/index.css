@@ -148,25 +148,15 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
     --ripple-animation: linear(0 0%,
-          0.15 8%,
-          0.1 10%,
-          0.25 18%,
-          0.2 20%,
-          0.35 28%,
-          0.3 30%,
-          0.45 38%,
-          0.4 40%,
-          0.55 48%,
-          0.5 50%,
-          0.65 58%,
-          0.6 60%,
-          0.75 68%,
-          0.7 70%,
-          0.85 78%,
-          0.8 80%,
-          0.95 88%,
-          0.9 90%,
-          1.05 98%,
+      0.12 15%,
+        0.1 20%,
+        0.30 35%,
+        0.25 40%,
+        0.6 55%,
+        0.5 60%,
+        0.8 85%,
+        0.9 90%,
+        1.03 98%,
           1 100%);
   }
 
@@ -209,7 +199,7 @@
   }
 
   #root {
-    @apply bg-background text-primary;
+    @apply bg-background text-primary flex flex-col items-center justify-center relative;
     animation: backgroundColorChange 3s infinite alternate;
   }
 
@@ -217,7 +207,7 @@
     min-height: 100vh;
     background-image: url(../asset/acv.svg);
     background-size: 30vw;
-      background-blend-mode: hue;
+    background-blend-mode: hue;
     animation-timing-function: linear;
   }
 

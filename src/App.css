@@ -1,6 +1,5 @@
 .App {}
 
 .button-animate {
-  transition: scale 5s var(--ripple-animation);
-  scale: 2
+  transition: all 5s var(--ripple-animation);
 }
