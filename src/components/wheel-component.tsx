@@ -290,6 +290,7 @@ const WheelComponent = ({
   return (
     <div id={wheelId.current}>
       <canvas
+        onContextMenu={(e) => e.preventDefault()}
         id={canvasId.current}
         width={dimension}
         height={dimension}

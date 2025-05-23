@@ -30,6 +30,7 @@ export const useLongPress = (
           passive: false,
         });
         target.current = event.target as HTMLElement;
+        event.preventDefault();
       }
       setIsClicking(true);
       timeout.current = window.setTimeout(() => {

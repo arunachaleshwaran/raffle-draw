@@ -7,7 +7,9 @@ import { ScratchToReveal } from '@/components/magicui/scratch-to-reveal';
 import { AnimatedList } from '@/components/magicui/animated-list';
 
 function App() {
-  const [state, setState] = useState<'button' | 'button-click' | 'spin-wheel' | 'winner'>('button');
+  const [state, setState] = useState<
+    'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile'
+  >('button');
   const [winners, setWinners] = useState<Array<{ name: string; prize: string }>>([]);
   const prizes = ['2000', '1000', '500'];
   const homeSpanRef = useRef<HTMLSpanElement>(null);
@@ -74,12 +76,12 @@ function App() {
     }
   }, [isClicking]);
   const goHome = () => {
-    if (state === 'winner') setState('button');
+    if (state === 'price-revile') setState('button');
   };
-  console.log(winners);
+  const isComplete = state == 'button' && winners.length === prizes.length;
   return (
     <>
-      {!(state == 'button' && winners.length === prizes.length) && (
+      {!isComplete && (
         <span
           className="absolute w-[80vmin] h-[80vmin] flex justify-center items-center"
           ref={homeSpanRef}
@@ -92,7 +94,8 @@ function App() {
               ref={buttonRef}
               {...longPressEvent}
               type="button"
-              className="bg-secondary-background rounded-full w-1/6 h-1/6 absolute button-animate"
+              onContextMenu={(e) => e.preventDefault()}
+              className="bg-secondary-background rounded-full w-1/6 h-1/6 absolute button-animate select-none"
             >
               Hold
             </button>
@@ -117,7 +120,7 @@ function App() {
             <ScratchToReveal
               width={300}
               height={300}
-              className="flex items-center justify-center overflow-hidden rounded-[20%]"
+              className="flex items-center justify-center overflow-hidden rounded-[20%] animate-out fade-in-0 fade-out-50 animation-duration-2000 select-none"
               minScratchPercentage={70}
               gradientColors={['#A97CF8', '#F38CB8', '#FDCC92']}
               onComplete={() => {
@@ -125,6 +128,7 @@ function App() {
                 setWinners((state) => {
                   const newWinners = [...state];
                   newWinners[newWinners.length - 1].prize = prizes[winners.length - 1];
+                  setState('price-revile');
                   return newWinners;
                 });
               }}
@@ -139,10 +143,11 @@ function App() {
       <AnimatedList
         className={
           'absolute p-8 h-full' +
-          (state == 'button' && winners.length === prizes.length ? '' : ' left-0 top-0 ')
+          (isComplete ? ' animate-in scale-200 origin-top' : ' left-0 top-0 ')
         }
         onClick={goHome}
         onTouchEnd={goHome}
+        style={{ opacity: isRunning ? 0.5 : 1 }}
       >
         {winners
           .filter((winner) => winner.prize)
