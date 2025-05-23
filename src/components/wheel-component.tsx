@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const richWarmColors = [
   '#F26723',
@@ -140,7 +140,6 @@ const WheelComponent = ({
       canvas.setAttribute('id', canvasId.current);
       document.getElementById(wheelId.current)?.appendChild(canvas);
     }
-    canvas?.addEventListener('click', spin, false);
     canvasContext = canvas?.getContext('2d');
   };
   const spin = () => {
@@ -151,7 +150,6 @@ const WheelComponent = ({
       timerHandle = window.setInterval(onTimerTick, 10);
     }
   };
-
   const onTimerTick = () => {
     draw();
     const duration = new Date().getTime() - spinStart;
@@ -279,6 +277,7 @@ const WheelComponent = ({
     currentSegment = segments[i];
     if (isStarted) ctx.fillText(currentSegment, centerX + 10, centerY + size + 50);
   };
+  useEffect(() => spin(), []);
 
   const clear = () => {
     if (!canvasContext) {

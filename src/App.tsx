@@ -1,6 +1,8 @@
 import './App.css';
 import { useConfetti } from '@/magicui/use-confetti';
 import WheelComponent from './components/wheel-component';
+import { useLongPress } from '@/hook/use-long-press';
+import { useMemo, useRef } from 'react';
 
 function App() {
   const { trigger, isRunning } = useConfetti();
@@ -25,9 +27,31 @@ function App() {
     '#FF9000',
   ];
   const onFinished = (winner: string) => {
-    console.log(winner);
     trigger();
   };
+  const { isClicking, ...longPressEvent } = useLongPress(
+    () => trigger(),
+    () => console.log('click'),
+    { delay: 5000 },
+  );
+  console.log('isClicking', isClicking);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  useMemo(() => {
+    const rootEle = document.getElementById('root')!;
+    if (!buttonRef.current) return;
+    if (isClicking) {
+      rootEle.style.setProperty('animation-timing-function', 'var(--ripple-animation)');
+      rootEle.style.setProperty('animation-duration', '.3s');
+      rootEle.style.setProperty('background-blend-mode', 'difference');
+
+      buttonRef.current.classList.add('button-animate');
+    } else {
+      rootEle.style.removeProperty('animation-timing-function');
+      rootEle.style.removeProperty('animation-duration');
+      rootEle.style.removeProperty('background-blend-mode');
+      buttonRef.current.classList.remove('button-animate');
+    }
+  }, [isClicking]);
   return (
     <>
       <WheelComponent
@@ -37,14 +61,21 @@ function App() {
         onFinished={(winner) => onFinished(winner)}
         primaryColor="black"
         contrastColor="white"
-        buttonText="Spin"
+        buttonText=""
         isOnlyOnce={true}
         size={300}
         upDuration={3000}
       />
-      <div className="App" onClick={trigger}>
-        {!isRunning && <>Hello World</>}
-      </div>
+      {!isRunning && (
+        <button
+          ref={buttonRef}
+          {...longPressEvent}
+          type="button"
+          className="bg-primary-background  text-secondary p-2 rounded"
+        >
+          Button
+        </button>
+      )}
     </>
   );
 }
