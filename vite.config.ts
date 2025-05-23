@@ -21,4 +21,9 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
   },
+  preview: {
+    port: 4020,
+    strictPort: true,
+    allowedHosts: true,
+  },
 });
