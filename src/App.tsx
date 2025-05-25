@@ -5,15 +5,43 @@ import { useLongPress } from '@/hook/use-long-press';
 import { useMemo, useRef, useState } from 'react';
 import { ScratchToReveal } from '@/components/magicui/scratch-to-reveal';
 import { AnimatedList } from '@/components/magicui/animated-list';
+import { PriceCard } from './components/price-card';
 
 function App() {
   const [state, setState] = useState<
     'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile'
   >('button');
   const [winners, setWinners] = useState<Array<{ name: string; prize: string }>>([]);
-  const prizes = ['2000', '1000', '500'];
   const homeSpanRef = useRef<HTMLSpanElement>(null);
+  const priceCardRef = useRef<HTMLDivElement>(null);
   const { trigger, isRunning } = useConfetti();
+  const rootEle = document.getElementById('root')!;
+  const { isClicking, ...longPressEvent } = useLongPress(
+    () => {
+      setState('spin-wheel');
+      rootEle.style.setProperty('background-blend-mode', 'difference');
+    },
+    () => {
+      setState('button');
+      rootEle.style.setProperty('animation-duration', '.1s');
+      removeRootStyle();
+      priceCardRef.current?.style.setProperty('animation-duration', '.1s');
+    },
+    { delay: 5000, shouldPreventDefault: true },
+  );
+  useMemo(() => {
+    if (!priceCardRef.current) return;
+    if (isClicking) {
+      setState('button-click');
+      rootEle.style.setProperty('animation-timing-function', 'var(--ripple-animation)');
+      rootEle.style.setProperty('animation-duration', '.2s');
+
+      priceCardRef.current.classList.add('w-full', 'h-full');
+    } else {
+      priceCardRef.current.classList.remove('w-full', 'h-full');
+    }
+  }, [isClicking]);
+  const prizes = ['500', '1000', '2000'];
   const segments = [
     'Trust',
     'Transparency',
@@ -38,7 +66,7 @@ function App() {
     '#333333',
     '#FF6F61',
   ];
-  const rootEle = document.getElementById('root')!;
+  const isComplete = state == 'button' && winners.length === prizes.length;
   const removeRootStyle = () => {
     rootEle.style.removeProperty('animation-timing-function');
     rootEle.style.removeProperty('animation-duration');
@@ -48,41 +76,13 @@ function App() {
     trigger();
     setTimeout(() => setState('winner'), 5000);
     setWinners((state) => [...state, { name: winner, prize: '' }]);
-    buttonRef.current?.classList.remove('button-animate');
+    priceCardRef.current?.classList.remove('button-animate');
     removeRootStyle();
   };
-  const { isClicking, ...longPressEvent } = useLongPress(
-    () => {
-      setState('spin-wheel');
-      rootEle.style.setProperty('background-blend-mode', 'difference');
-    },
-    () => {
-      setState('button');
-      rootEle.style.setProperty('animation-duration', '.2s');
-      removeRootStyle();
-      buttonRef.current?.style.setProperty('animation-duration', '.2s');
-    },
-    { delay: 5000, shouldPreventDefault: true },
-  );
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  useMemo(() => {
-    if (!buttonRef.current) return;
-    if (isClicking) {
-      setState('button-click');
-      rootEle.style.setProperty('animation-timing-function', 'var(--ripple-animation)');
-      rootEle.style.setProperty('animation-duration', '.2s');
 
-      buttonRef.current.classList.add('w-full');
-      buttonRef.current.classList.add('h-full');
-    } else {
-      buttonRef.current.classList.remove('w-full');
-      buttonRef.current.classList.remove('h-full');
-    }
-  }, [isClicking]);
   const goHome = () => {
     if (state === 'price-revile') setState('button');
   };
-  const isComplete = state == 'button' && winners.length === prizes.length;
   return (
     <>
       {!isComplete && (
@@ -91,18 +91,21 @@ function App() {
           ref={homeSpanRef}
         >
           {state == 'button-click' && (
-            <span className="rounded-full w-full h-full absolute backdrop-brightness-130" />
+            <span className="rounded-full w-full h-full absolute backdrop-brightness-130 z-0" />
           )}
           {(state == 'button' || state == 'button-click') && (
-            <button
-              ref={buttonRef}
+            <PriceCard
+              ref={priceCardRef}
+              price={500}
+              title={
+                <>
+                  3<sup>rd</sup> Prize Pit Stop
+                </>
+              }
+              color="13551f"
+              className="h-3/12 w-2/3  select-none button-animate rounded-full "
               {...longPressEvent}
-              type="button"
-              onContextMenu={(e) => e.preventDefault()}
-              className="bg-secondary-background rounded-full w-1/6 h-1/6 absolute button-animate select-none"
-            >
-              Hold
-            </button>
+            />
           )}
           {state === 'spin-wheel' && (
             <span className="absolute">
@@ -116,16 +119,16 @@ function App() {
                 buttonText=""
                 isOnlyOnce={true}
                 size={homeSpanRef.current ? homeSpanRef.current.clientWidth / 2 : 300}
-                upDuration={2000}
+                upTime={5000}
               />
             </span>
           )}
-          {state === 'winner' && (
+          {(state === 'winner' || state === 'price-revile') && (
             <ScratchToReveal
               width={300}
               height={300}
               className="flex items-center justify-center overflow-hidden rounded-[20%] animate-out fade-in-0 fade-out-50 animation-duration-2000 select-none"
-              minScratchPercentage={70}
+              minScratchPercentage={50}
               gradientColors={['#A97CF8', '#F38CB8', '#FDCC92']}
               onComplete={() => {
                 trigger();
@@ -137,7 +140,7 @@ function App() {
                 });
               }}
             >
-              <span className="text-3xl bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
+              <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
                 {prizes[winners.length - 1]}
               </span>
             </ScratchToReveal>

@@ -5,7 +5,7 @@ interface UseLongPressOptions {
   delay?: number;
 }
 
-interface UseLongPressHandlers {
+export interface UseLongPressHandlers {
   isClicking: boolean;
   onMouseDown: (e: React.MouseEvent<HTMLElement>) => void;
   onTouchStart: (e: React.TouchEvent<HTMLElement>) => void;

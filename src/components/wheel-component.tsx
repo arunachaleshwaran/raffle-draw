@@ -71,7 +71,7 @@ export interface WheelComponentProps {
   buttonText?: string;
   isOnlyOnce?: boolean;
   size?: number;
-  upDuration?: number;
+  upTime?: number;
   downDuration?: number;
   fontFamily?: string;
   fontSize?: string;
@@ -86,7 +86,7 @@ const WheelComponent = ({
   buttonText = 'Spin',
   isOnlyOnce = true,
   size = window.innerWidth,
-  upDuration = 100,
+  upTime = 2000,
   fontFamily = 'proxima-nova',
   fontSize = '1em',
   outlineWidth = 10,
@@ -112,7 +112,6 @@ const WheelComponent = ({
   let angleDelta = 0;
   let canvasContext: CanvasRenderingContext2D | null = null;
   let maxSpeed = Math.PI / segments.length;
-  const upTime = segments.length * upDuration;
   let spinStart = 0;
   const centerX = size + 20;
   const centerY = size + 20;
