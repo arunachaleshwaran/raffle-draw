@@ -9,7 +9,7 @@ import { PriceCard } from './components/price-card';
 import BrandVsPeople from './brand-vs-people.json';
 function App() {
   const [state, setState] = useState<
-    'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile'
+    'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile' | 'team-reveal'
   >('button');
   const [winners, setWinners] = useState<Array<{ brand: string; prize: number; name: string }>>([]);
   const homeSpanRef = useRef<HTMLSpanElement>(null);
@@ -111,7 +111,7 @@ function App() {
   };
 
   const goHome = () => {
-    if (state === 'price-revile') setState('button');
+    if (state === 'team-reveal') setState('button');
   };
   return (
     <>
@@ -149,26 +149,46 @@ function App() {
               />
             </span>
           )}
-          {(state === 'winner' || state === 'price-revile') && (
+          {(state === 'winner' || state === 'price-revile' || state === 'team-reveal') && (
             <ScratchToReveal
               width={300}
               height={300}
-              className="flex items-center justify-center overflow-hidden rounded-[20%] animate-out fade-in-0 fade-out-50 animation-duration-2000 select-none"
+              className="flex items-center justify-center overflow-hidden rounded-[20%] animate-out fade-in-0 fade-out-50 animation-duration-2000 select-none [perspective:300px]"
               minScratchPercentage={50}
               gradientColors={['#A97CF8', '#F38CB8', '#FDCC92']}
               onComplete={() => {
                 trigger();
-                setWinners((state) => {
-                  const newWinners = [...state];
-                  newWinners[newWinners.length - 1].prize = prizes[winners.length - 1].amount;
-                  setState('price-revile');
-                  return newWinners;
-                });
+                setState('price-revile');
               }}
             >
-              <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
-                {winners[winners.length - 1].brand}
-              </span>
+              {state === 'winner' ? (
+                <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
+                  {winners[winners.length - 1].brand}
+                </span>
+              ) : (
+                <div
+                  onClick={() => {
+                    setState('team-reveal');
+                    setTimeout(() => {
+                      setWinners((state) => {
+                        const newWinners = [...state];
+                        newWinners[newWinners.length - 1].prize = prizes[winners.length - 1].amount;
+                        return newWinners;
+                      });
+                    }, 1000);
+                  }}
+                  className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 ${
+                    state !== 'price-revile' ? '[transform:rotateY(180deg)]' : ''
+                  }`}
+                >
+                  <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [backface-visibility:hidden] text-center">
+                    {winners[winners.length - 1].brand}
+                  </div>
+                  <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [transform:rotateY(180deg)] [backface-visibility:hidden] text-center">
+                    {winners[winners.length - 1].name}
+                  </div>
+                </div>
+              )}
             </ScratchToReveal>
           )}
         </span>
@@ -189,7 +209,7 @@ function App() {
               key={winner.prize}
               className="bg-card-background rounded-lg p-4 flex flex-col items-center justify-center"
             >
-              <h3 className="text-xl7 font-bold ">{winner.brand}</h3>
+              <h3 className="text-xl7 font-bold ">{winner.name}</h3>
               <p className="text-lg">{winner.prize}</p>
             </div>
           ))}
