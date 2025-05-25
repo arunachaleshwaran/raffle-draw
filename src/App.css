@@ -1,4 +1,5 @@
-.App {}
+.App {
+}
 
 .button-animate {
   transition: all 5s var(--ripple-animation);

@@ -1,11 +1,10 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "tailwindcss-animated";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'tailwindcss-animated';
 
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
-
   *,
   *::before,
   *::after {
@@ -124,8 +123,8 @@
     --card-background: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-background: oklch(0.145 0 0);
-      --primary: oklch(0.94 0.07 79.9);
-      --primary-background: oklch(0.4 0.15 224.25);
+    --primary: oklch(0.94 0.07 79.9);
+    --primary-background: oklch(0.4 0.15 224.25);
     --secondary: oklch(0.97 0 0);
     --secondary-background: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
@@ -149,17 +148,19 @@
     --sidebar-accent-background: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    --ripple-animation: linear(0 0%,
+    --ripple-animation: linear(
+      0 0%,
       0.12 15%,
-        0.1 20%,
-        0.30 35%,
-        0.25 40%,
-        0.6 55%,
-        0.5 60%,
-        0.8 85%,
-        0.9 90%,
-        1.03 98%,
-          1 100%);
+      0.1 20%,
+      0.3 35%,
+      0.25 40%,
+      0.6 55%,
+      0.5 60%,
+      0.8 85%,
+      0.9 90%,
+      1.03 98%,
+      1 100%
+    );
   }
 
   .dark {
