@@ -41,7 +41,7 @@ function App() {
       priceCardRef.current.classList.remove('w-full', 'h-full');
     }
   }, [isClicking]);
-  const prizes: Array<{ amount: number; title: React.ReactNode }> = [
+  const prizes: Array<{ amount: number; title: React.ReactNode; color: string }> = [
     {
       amount: 500,
       title: (
@@ -49,6 +49,7 @@ function App() {
           3<sup>rd</sup> Prize: Pit Stop
         </>
       ),
+      color: '13551f',
     },
     {
       amount: 1000,
@@ -57,6 +58,7 @@ function App() {
           2<sup>nd</sup> Prize: Turbocharged
         </>
       ),
+      color: '812576',
     },
     {
       amount: 2000,
@@ -65,6 +67,7 @@ function App() {
           1<sup>st</sup> Prize: Pole Position
         </>
       ),
+      color: '052569',
     },
   ];
   const currentPriceIndex = winners.filter((winner) => winner.prize).length;
@@ -128,8 +131,8 @@ function App() {
               ref={priceCardRef}
               price={prizeDetail.amount}
               title={prizeDetail.title}
-              color="13551f"
-              className="h-3/12 w-2/3  select-none button-animate rounded-full "
+              color={prizeDetail.color}
+              className={`h-3/12 w-2/3 select-none button-animate rounded-full `}
               {...longPressEvent}
             />
           )}
@@ -139,7 +142,7 @@ function App() {
                 segments={segments}
                 segColors={segColors}
                 winningSegment="won 10"
-                onFinished={(winner) => onFinished(winner)}
+                onFinished={onFinished}
                 primaryColor="black"
                 contrastColor="white"
                 buttonText=""
