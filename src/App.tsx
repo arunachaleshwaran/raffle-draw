@@ -20,12 +20,13 @@ function App() {
     () => {
       setState('spin-wheel');
       rootEle.style.setProperty('background-blend-mode', 'difference');
+      priceCardRef.current?.style.removeProperty('transition-duration');
     },
     () => {
       setState('button');
       rootEle.style.setProperty('animation-duration', '.1s');
       removeRootStyle();
-      priceCardRef.current?.style.setProperty('animation-duration', '.1s');
+      priceCardRef.current?.style.setProperty('transition-duration', '.3s');
     },
     { delay: 5000, shouldPreventDefault: true },
   );
@@ -35,6 +36,7 @@ function App() {
       setState('button-click');
       rootEle.style.setProperty('animation-timing-function', 'var(--ripple-animation)');
       rootEle.style.setProperty('animation-duration', '.2s');
+      priceCardRef.current?.style.removeProperty('transition-duration');
 
       priceCardRef.current.classList.add('w-full', 'h-full');
     } else {
@@ -109,7 +111,7 @@ function App() {
     setTimeout(() => setState('winner'), 5000);
     const winner = BrandVsPeople[Math.floor(Math.random() * BrandVsPeople.length)];
     setWinners((state) => [...state, { brand: winner.brand, prize: 0, name: winner.name }]);
-    priceCardRef.current?.classList.remove('button-animate');
+    // priceCardRef.current?.classList.remove('button-animate');
     removeRootStyle();
   };
 
@@ -156,7 +158,7 @@ function App() {
             <ScratchToReveal
               width={300}
               height={300}
-              className="flex items-center justify-center overflow-hidden rounded-[20%] animate-out fade-in-0 fade-out-50 animation-duration-2000 select-none [perspective:300px]"
+              className="flex items-center justify-center overflow-hidden rounded-[20%] animation-duration-2000 select-none [perspective:300px]"
               minScratchPercentage={50}
               gradientColors={['#A97CF8', '#F38CB8', '#FDCC92']}
               onComplete={() => {
@@ -196,27 +198,32 @@ function App() {
           )}
         </span>
       )}
-      <AnimatedList
+      <nav
         className={
-          'absolute p-8 h-full' +
+          'absolute p-8 h-full w-1/6' +
           (isComplete ? ' animate-in scale-200 origin-top' : ' left-0 top-0 ')
         }
-        onClick={goHome}
-        onTouchEnd={goHome}
-        style={{ opacity: isRunning ? 0.5 : 1 }}
       >
-        {winners
-          .filter((winner) => winner.prize)
-          .map((winner) => (
-            <div
-              key={winner.prize}
-              className="bg-card-background rounded-lg p-4 flex flex-col items-center justify-center"
-            >
-              <h3 className="text-xl7 font-bold ">{winner.name}</h3>
-              <p className="text-lg">{winner.prize}</p>
-            </div>
-          ))}
-      </AnimatedList>
+        <img src="/asset/acv-family-day-logo.png" />
+        <AnimatedList
+          onClick={goHome}
+          onTouchEnd={goHome}
+          style={{ opacity: isRunning ? 0.5 : 1 }}
+          className="h-full"
+        >
+          {winners
+            .filter((winner) => winner.prize)
+            .map((winner) => (
+              <div
+                key={winner.prize}
+                className="bg-card-background rounded-lg p-4 flex flex-col items-center justify-center"
+              >
+                <h3 className="text-xl7 font-bold ">{winner.name}</h3>
+                <p className="text-lg">{winner.prize}</p>
+              </div>
+            ))}
+        </AnimatedList>
+      </nav>
     </>
   );
 }
