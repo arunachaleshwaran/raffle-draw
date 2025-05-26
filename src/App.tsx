@@ -7,6 +7,7 @@ import { ScratchToReveal } from '@/components/magicui/scratch-to-reveal';
 import { AnimatedList } from '@/components/magicui/animated-list';
 import { PriceCard } from './components/price-card';
 import BrandVsPeople from './brand-vs-people.json';
+import { HyperText } from './components/magicui/hyper-text';
 function App() {
   const [state, setState] = useState<
     'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile' | 'team-reveal'
@@ -120,6 +121,7 @@ function App() {
   };
   return (
     <>
+      <HyperText className="absolute text-9xl top-1/12">Raffle Draw</HyperText>
       {!isComplete && (
         <span
           className="absolute w-[80vmin] h-[80vmin] flex justify-center items-center"
