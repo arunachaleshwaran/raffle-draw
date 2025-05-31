@@ -121,7 +121,7 @@ function App() {
   };
   return (
     <>
-      <HyperText className="absolute text-9xl top-1/12">Raffle Draw</HyperText>
+      <HyperText className="absolute text-9xl top-3">Raffle Draw</HyperText>
       {!isComplete && (
         <span
           className="absolute w-[80vmin] h-[80vmin] flex justify-center items-center"
@@ -151,6 +151,7 @@ function App() {
                 contrastColor="white"
                 buttonText=""
                 isOnlyOnce={true}
+                fontSize="2em"
                 size={homeSpanRef.current ? homeSpanRef.current.clientWidth / 2 : 300}
                 upTime={5000}
               />
@@ -203,7 +204,7 @@ function App() {
       <nav
         className={
           'absolute p-8 h-full w-1/6' +
-          (isComplete ? ' animate-in scale-200 origin-top' : ' left-0 top-0 ')
+          (isComplete ? ' animate-in scale-200 origin-top top-1/12' : ' left-0 top-0 ')
         }
       >
         <img src="/asset/acv-family-day-logo.png" />
