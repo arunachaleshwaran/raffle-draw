@@ -20,7 +20,7 @@ export const PriceCard = forwardRef<HTMLDivElement, PriceCardProps>(
       >
         <div className={`grid grid-cols-[auto_1fr] gap-4 items-center-safe`}>
           <img
-            src="/asset/rocket.png"
+            src="/public/rocket.png"
             alt="Rocket Icon"
             className="row-span-3 aspect-square h-35 animate-infinite animate-duration-200 animate-ease-in-out animate-out invert-100"
           />

@@ -136,7 +136,7 @@ function App() {
               price={prizeDetail.amount}
               title={prizeDetail.title}
               color={prizeDetail.color}
-              className={`h-3/12 w-2/3 select-none button-animate rounded-full `}
+              className={` h-3/12 w-2/3 select-none button-animate rounded-full `}
               {...longPressEvent}
             />
           )}
@@ -207,7 +207,7 @@ function App() {
           (isComplete ? ' animate-in scale-200 origin-top top-1/12' : ' left-0 top-0 ')
         }
       >
-        <img src="/asset/acv-family-day-logo.png" />
+        <img src="/public/acv-family-day-logo.png" />
         <AnimatedList
           onClick={goHome}
           onTouchEnd={goHome}
