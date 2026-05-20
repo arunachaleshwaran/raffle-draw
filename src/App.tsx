@@ -207,7 +207,7 @@ function App() {
           (isComplete ? ' animate-in scale-200 origin-top top-1/12' : ' left-0 top-0 ')
         }
       >
-        <img src="/public/acv-family-day-logo.png" />
+        <img src={`${import.meta.env.BASE_URL}acv-family-day-logo.png`} />
         <AnimatedList
           onClick={goHome}
           onTouchEnd={goHome}

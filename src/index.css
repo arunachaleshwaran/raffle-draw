@@ -204,7 +204,7 @@
   #root {
     @apply bg-background text-primary flex flex-col items-center justify-center relative h-dvh;
     animation: backgroundColorChange 3s infinite alternate;
-    background-image: url(../asset/acv.svg);
+    background-image: url(/acv.svg);
     background-size: 30vw;
     background-blend-mode: hue;
     animation-timing-function: linear;

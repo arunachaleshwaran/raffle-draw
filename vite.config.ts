@@ -11,6 +11,7 @@ export default defineConfig({
     open: false,
     strictPort: true,
   },
+  base: '/raffle-draw/',
   resolve: {
     alias: {
       '@/magicui': path.resolve(__dirname, './src/components/magicui'),
