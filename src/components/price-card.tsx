@@ -16,6 +16,7 @@ export const PriceCard = forwardRef<HTMLDivElement, PriceCardProps>(
       <div
         {...longPressEvent}
         ref={ref}
+        style={{ backgroundColor: `#${color}`, ...longPressEvent.style }}
         className={`rounded-4xl px-20 py-8 shadow-inner shadow-black/30 z-1 bg-[#${color}] ${className} flex justify-center items-center`}
       >
         <div className={`grid grid-cols-[auto_1fr] gap-4 items-center-safe`}>
