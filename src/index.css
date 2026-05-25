@@ -206,6 +206,7 @@
     animation: backgroundColorChange 3s infinite alternate;
     background-image: url(/acv.svg);
     background-size: 30vw;
+    filter: brightness(1.5);
     background-blend-mode: hue;
     animation-timing-function: linear;
   }

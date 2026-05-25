@@ -10,9 +10,9 @@ import BrandVsPeople from './brand-vs-people.json';
 import { HyperText } from './components/magicui/hyper-text';
 function App() {
   const [state, setState] = useState<
-    'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile' | 'team-reveal'
+    'button' | 'button-click' | 'spin-wheel' | 'winner' | 'price-revile'
   >('button');
-  const [winners, setWinners] = useState<Array<{ brand: string; prize: number; name: string }>>([]);
+  const [winners, setWinners] = useState<Array<{ prize: number; name: string }>>([]);
   const homeSpanRef = useRef<HTMLSpanElement>(null);
   const priceCardRef = useRef<HTMLDivElement>(null);
   const { trigger, isRunning } = useConfetti();
@@ -114,13 +114,13 @@ function App() {
     trigger();
     setTimeout(() => setState('winner'), 5000);
     const winner = BrandVsPeople[Math.floor(Math.random() * BrandVsPeople.length)];
-    setWinners((state) => [...state, { brand: winner.brand, prize: 0, name: winner.name }]);
+    setWinners((state) => [...state, { prize: 0, name: winner.name }]);
     // priceCardRef.current?.classList.remove('button-animate');
     removeRootStyle();
   };
 
   const goHome = () => {
-    if (state === 'team-reveal') setState('button');
+    if (state === 'price-revile') setState('button');
   };
   return (
     <>
@@ -160,7 +160,7 @@ function App() {
               />
             </span>
           )}
-          {(state === 'winner' || state === 'price-revile' || state === 'team-reveal') && (
+          {(state === 'winner' || state === 'price-revile') && (
             <ScratchToReveal
               width={300}
               height={300}
@@ -170,36 +170,18 @@ function App() {
               onComplete={() => {
                 trigger();
                 setState('price-revile');
+                setTimeout(() => {
+                  setWinners((state) => {
+                    const newWinners = [...state];
+                    newWinners[newWinners.length - 1].prize = prizes[winners.length - 1].amount;
+                    return newWinners;
+                  });
+                }, 1000);
               }}
             >
-              {state === 'winner' ? (
-                <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
-                  {winners[winners.length - 1].name}
-                </span>
-              ) : (
-                <div
-                  onClick={() => {
-                    setState('team-reveal');
-                    setTimeout(() => {
-                      setWinners((state) => {
-                        const newWinners = [...state];
-                        newWinners[newWinners.length - 1].prize = prizes[winners.length - 1].amount;
-                        return newWinners;
-                      });
-                    }, 1000);
-                  }}
-                  className={`relative w-full h-full [transform-style:preserve-3d] transition-transform duration-700 ${
-                    state !== 'price-revile' ? '[transform:rotateY(180deg)]' : ''
-                  }`}
-                >
-                  <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [backface-visibility:hidden] text-center">
-                    {winners[winners.length - 1].name}
-                  </div>
-                  <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [transform:rotateY(180deg)] [backface-visibility:hidden] text-center">
-                    {winners[winners.length - 1].name}
-                  </div>
-                </div>
-              )}
+              <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
+                {winners[winners.length - 1].name}
+              </span>
             </ScratchToReveal>
           )}
         </span>
@@ -207,7 +189,9 @@ function App() {
       <nav
         className={
           'absolute p-8 h-full w-1/6' +
-          (isComplete ? ' animate-in scale-200 origin-top top-1/12' : ' left-0 top-0 ')
+          (isComplete
+            ? ' animate-in scale-200 origin-top top-1/12 overflow-y-scroll scrollbar-hide'
+            : ' left-0 top-0 ')
         }
       >
         <img src={`${import.meta.env.BASE_URL}acv-family-day-logo.png`} />
