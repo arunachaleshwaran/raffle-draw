@@ -47,30 +47,33 @@ function App() {
   const prizes: Array<{ amount: number; title: React.ReactNode; color: string }> = [
     {
       amount: 500,
-      title: (
-        <>
-          3<sup>rd</sup> Prize: Pit Stop
-        </>
-      ),
+      title: <>Prize 1</>,
       color: '13551f',
     },
     {
-      amount: 1000,
-      title: (
-        <>
-          2<sup>nd</sup> Prize: Turbocharged
-        </>
-      ),
+      amount: 500,
+      title: <>Prize 2</>,
       color: '812576',
     },
     {
-      amount: 2000,
-      title: (
-        <>
-          1<sup>st</sup> Prize: Pole Position
-        </>
-      ),
+      amount: 500,
+      title: <>Prize 3</>,
       color: '052569',
+    },
+    {
+      amount: 500,
+      title: <> Price 4</>,
+      color: '1e6b8c',
+    },
+    {
+      amount: 500,
+      title: <> Price 5</>,
+      color: 'a8541c',
+    },
+    {
+      amount: 500,
+      title: <> Price 6</>,
+      color: '5c1f7a',
     },
   ];
   const currentPriceIndex = winners.filter((winner) => winner.prize).length;
@@ -171,7 +174,7 @@ function App() {
             >
               {state === 'winner' ? (
                 <span className="bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl">
-                  {winners[winners.length - 1].brand}
+                  {winners[winners.length - 1].name}
                 </span>
               ) : (
                 <div
@@ -190,7 +193,7 @@ function App() {
                   }`}
                 >
                   <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [backface-visibility:hidden] text-center">
-                    {winners[winners.length - 1].brand}
+                    {winners[winners.length - 1].name}
                   </div>
                   <div className="absolute bg-secondary-background border-8 border-dashed w-full h-full flex justify-center items-center rounded-[20%] text-6xl [transform:rotateY(180deg)] [backface-visibility:hidden] text-center">
                     {winners[winners.length - 1].name}
